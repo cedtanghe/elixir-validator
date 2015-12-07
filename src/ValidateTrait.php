@@ -19,7 +19,7 @@ trait ValidateTrait
     /**
      * @var boolean
      */
-    protected $validationErrorBreak = true;
+    protected $breakChainValidationOnFailure = true;
     
     /**
      * @var array
@@ -58,17 +58,17 @@ trait ValidateTrait
     /**
      * @param boolean $value
      */
-    public function setValidationErrorBreak($value)
+    public function setBreakChainValidationOnFailure($value)
     {
-        $this->validationErrorBreak = $value;
+        $this->breakChainValidationOnFailure = $value;
     }
     
     /**
      * @return boolean
      */
-    public function isValidationErrorBreak()
+    public function isBreakChainValidationOnFailure()
     {
-        return $this->validationErrorBreak;
+        return $this->breakChainValidationOnFailure;
     }
     
     /**
