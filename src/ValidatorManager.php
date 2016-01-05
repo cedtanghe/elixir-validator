@@ -21,10 +21,12 @@ class ValidatorManager
     
     /**
      * @param ContainerInterface $container
+     * @param array $aliases
      */
-    public function __construct(ContainerInterface $container) 
+    public function __construct(ContainerInterface $container, array $aliases = []) 
     {
         $this->container = $container;
+        $this->aliases += $aliases;
         
         foreach ($this->aliases as $alias => $original)
         {
