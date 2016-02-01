@@ -14,7 +14,7 @@ trait ValidateTrait
     /**
      * @var MessagesCatalog 
      */
-    protected $messagesCatalogue;
+    protected $messagesCatalog;
     
     /**
      * @var boolean
@@ -36,13 +36,13 @@ trait ValidateTrait
      */
     public function setMessagesCatalog(MessagesCatalog $value)
     {
-        $this->messagesCatalogue = $value;
+        $this->messagesCatalog = clone $value;
         
         foreach ($this->getDefaultCatalogMessages() as $key => $value)
         {
-            if (!$this->messagesCatalogue->has($key))
+            if (!$this->messagesCatalog->has($key))
             {
-                $this->messagesCatalogue->set($key, $value);
+                $this->messagesCatalog->set($key, $value);
             }
         }
     }
@@ -52,7 +52,7 @@ trait ValidateTrait
      */
     public function getMessagesCatalog()
     {
-        return $this->messagesCatalogue;
+        return $this->messagesCatalog;
     }
     
     /**
