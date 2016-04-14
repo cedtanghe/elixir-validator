@@ -17,6 +17,11 @@ trait ValidateTrait
     protected $messagesCatalog;
     
     /**
+     * @var string
+     */
+    protected $globalErrorMessage;
+    
+    /**
      * @var boolean
      */
     protected $breakChainValidationOnFailure = true;
@@ -53,6 +58,22 @@ trait ValidateTrait
     public function getMessagesCatalog()
     {
         return $this->messagesCatalog;
+    }
+    
+    /**
+     * @param string $value
+     */
+    public function setGlobalErrorMessage($value)
+    {
+        $this->globalErrorMessage = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGlobalErrorMessage()
+    {
+        return $this->globalErrorMessage;
     }
     
     /**
@@ -101,7 +122,7 @@ trait ValidateTrait
      */
     public function getValidationErrorMessages()
     {
-        return $this->validationErrors;
+        return $this->globalErrorMessage ? [$this->globalErrorMessage] : $this->validationErrors;
     }
     
     /**
