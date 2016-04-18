@@ -8,7 +8,6 @@ use Elixir\Validator\ValidatorInterface;
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
-
 trait ValidateTrait 
 {
     /**
@@ -131,7 +130,8 @@ trait ValidateTrait
     abstract protected function getDefaultCatalogMessages();
     
     /**
+     * @param mixed $data
      * @return boolean
      */
-    abstract public function validate();
+    abstract public function validate($data = null);
 }
