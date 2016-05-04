@@ -60,7 +60,7 @@ trait ValidateTrait
     }
     
     /**
-     * @param string $value
+     * {@inheritdoc}
      */
     public function setGlobalErrorMessage($value)
     {
@@ -68,7 +68,7 @@ trait ValidateTrait
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getGlobalErrorMessage()
     {
@@ -76,7 +76,7 @@ trait ValidateTrait
     }
     
     /**
-     * @param boolean $value
+     * {@inheritdoc}
      */
     public function setBreakChainValidationOnFailure($value)
     {
@@ -84,7 +84,7 @@ trait ValidateTrait
     }
     
     /**
-     * @return boolean
+     * {@inheritdoc}
      */
     public function isBreakChainValidationOnFailure()
     {
@@ -92,8 +92,7 @@ trait ValidateTrait
     }
     
     /**
-     * @param ValidatorInterface $validator
-     * @param array $options
+     * {@inheritdoc}
      */
     public function addValidator(ValidatorInterface $validator, array $options = [])
     {
@@ -101,7 +100,7 @@ trait ValidateTrait
     }
     
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getValidators()
     {
@@ -109,17 +108,17 @@ trait ValidateTrait
     }
     
     /**
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function hasValidationError()
+    public function hasError()
     {
         return count($this->validationErrors) > 0;
     }
     
     /**
-     * @return array
+     * {@inheritdoc}
      */
-    public function getValidationErrorMessages()
+    public function getErrorMessages()
     {
         return $this->globalErrorMessage ? [$this->globalErrorMessage] : $this->validationErrors;
     }
@@ -128,10 +127,4 @@ trait ValidateTrait
      * @return array
      */
     abstract protected function getDefaultCatalogMessages();
-    
-    /**
-     * @param mixed $data
-     * @return boolean
-     */
-    abstract public function validate($data = null);
 }

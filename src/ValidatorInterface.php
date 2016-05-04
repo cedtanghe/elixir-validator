@@ -5,7 +5,6 @@ namespace Elixir\Validator;
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
-
 interface ValidatorInterface
 {
     /**
