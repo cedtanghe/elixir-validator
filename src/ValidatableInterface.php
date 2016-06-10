@@ -46,6 +46,11 @@ interface ValidatableInterface
     public function hasError();
     
     /**
+     * @param array $messages
+     */
+    public function setErrorMessages(array $messages);
+    
+    /**
      * @return array
      */
     public function getErrorMessages();

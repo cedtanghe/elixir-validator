@@ -118,6 +118,14 @@ trait ValidateTrait
     /**
      * {@inheritdoc}
      */
+    public function setErrorMessages(array $messages)
+    {
+        $this->validationErrors = $messages;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public function getErrorMessages()
     {
         return $this->globalErrorMessage ? [$this->globalErrorMessage] : $this->validationErrors;
