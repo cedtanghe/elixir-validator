@@ -61,4 +61,9 @@ interface ValidatableInterface
      * @return boolean
      */
     public function validate($data = null, array $options = []);
+    
+    /**
+     * @return void
+     */
+    public function resetValidation();
 }
