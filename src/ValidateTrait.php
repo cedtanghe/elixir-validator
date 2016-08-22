@@ -3,28 +3,27 @@
 namespace Elixir\Validator;
 
 use Elixir\STDLib\MessagesCatalog;
-use Elixir\Validator\ValidatorInterface;
 
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
-trait ValidateTrait 
+trait ValidateTrait
 {
     /**
-     * @var MessagesCatalog 
+     * @var MessagesCatalog
      */
     protected $messagesCatalog;
-    
+
     /**
      * @var string
      */
     protected $globalErrorMessage;
-    
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $breakChainValidationOnFailure = true;
-    
+
     /**
      * @var array
      */
@@ -34,23 +33,21 @@ trait ValidateTrait
      * @var array
      */
     protected $validators = [];
-    
+
     /**
      * @param MessagesCatalog $value
      */
     public function setMessagesCatalog(MessagesCatalog $value)
     {
         $this->messagesCatalog = clone $value;
-        
-        foreach ($this->getDefaultCatalogMessages() as $key => $value)
-        {
-            if (!$this->messagesCatalog->has($key))
-            {
+
+        foreach ($this->getDefaultCatalogMessages() as $key => $value) {
+            if (!$this->messagesCatalog->has($key)) {
                 $this->messagesCatalog->set($key, $value);
             }
         }
     }
-    
+
     /**
      * @return MessagesCatalog
      */
@@ -58,7 +55,7 @@ trait ValidateTrait
     {
         return $this->messagesCatalog;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -74,7 +71,7 @@ trait ValidateTrait
     {
         return $this->globalErrorMessage;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -82,7 +79,7 @@ trait ValidateTrait
     {
         $this->breakChainValidationOnFailure = $value;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -90,7 +87,7 @@ trait ValidateTrait
     {
         return $this->breakChainValidationOnFailure;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -98,7 +95,7 @@ trait ValidateTrait
     {
         $this->validators[] = ['validator' => $validator, 'options' => $options];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -106,7 +103,7 @@ trait ValidateTrait
     {
         return $this->validators;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -114,7 +111,7 @@ trait ValidateTrait
     {
         return count($this->validationErrors) > 0;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -122,7 +119,7 @@ trait ValidateTrait
     {
         $this->validationErrors = [];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -130,7 +127,7 @@ trait ValidateTrait
     {
         $this->validationErrors = $messages;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -138,7 +135,7 @@ trait ValidateTrait
     {
         return $this->globalErrorMessage ? [$this->globalErrorMessage] : $this->validationErrors;
     }
-    
+
     /**
      * @return array
      */

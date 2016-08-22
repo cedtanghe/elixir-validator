@@ -10,15 +10,16 @@ interface ValidatorInterface
     /**
      * @param mixed $value
      * @param array $options
-     * @return boolean
+     *
+     * @return bool
      */
     public function validate($value, array $options = []);
-    
+
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasError();
-    
+
     /**
      * @return array
      */

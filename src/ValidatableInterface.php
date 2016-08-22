@@ -2,8 +2,6 @@
 
 namespace Elixir\Validator;
 
-use Elixir\Validator\ValidatorInterface;
-
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
@@ -18,52 +16,50 @@ interface ValidatableInterface
      * @return string
      */
     public function getGlobalErrorMessage();
-    
+
     /**
-     * @param boolean $value
+     * @param bool $value
      */
     public function setBreakChainValidationOnFailure($value);
-    
+
     /**
-     * @return boolean
+     * @return bool
      */
     public function isBreakChainValidationOnFailure();
-    
+
     /**
      * @param ValidatorInterface $validator
-     * @param array $options
+     * @param array              $options
      */
     public function addValidator(ValidatorInterface $validator, array $options = []);
-    
+
     /**
      * @return array
      */
     public function getValidators();
-    
+
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasError();
-    
+
     /**
      * @param array $messages
      */
     public function setErrorMessages(array $messages);
-    
+
     /**
      * @return array
      */
     public function getErrorMessages();
-    
+
     /**
      * @param mixed $data
      * @param array $options
-     * @return boolean
+     *
+     * @return bool
      */
     public function validate($data = null, array $options = []);
-    
-    /**
-     * @return void
-     */
+
     public function resetValidation();
 }
