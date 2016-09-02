@@ -17,7 +17,9 @@ class ValidatorManager
     /**
      * @var array
      */
-    protected $aliases = [];
+    protected $aliases = [
+        'validator.callback' => '\Elixir\Validator\CallbackValidator',
+    ];
 
     /**
      * @param ContainerInterface $container
