@@ -2,18 +2,11 @@
 
 namespace Elixir\Validator;
 
-use Elixir\STDLib\MessagesCatalog;
-
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
-trait ValidateTrait
+trait ValidatableTrait
 {
-    /**
-     * @var MessagesCatalog
-     */
-    protected $messagesCatalog;
-
     /**
      * @var string
      */
@@ -33,28 +26,6 @@ trait ValidateTrait
      * @var array
      */
     protected $validators = [];
-
-    /**
-     * @param MessagesCatalog $value
-     */
-    public function setMessagesCatalog(MessagesCatalog $value)
-    {
-        $this->messagesCatalog = clone $value;
-
-        foreach ($this->getDefaultCatalogMessages() as $key => $value) {
-            if (!$this->messagesCatalog->has($key)) {
-                $this->messagesCatalog->set($key, $value);
-            }
-        }
-    }
-
-    /**
-     * @return MessagesCatalog
-     */
-    public function getMessagesCatalog()
-    {
-        return $this->messagesCatalog;
-    }
 
     /**
      * {@inheritdoc}
@@ -133,11 +104,6 @@ trait ValidateTrait
      */
     public function getErrorMessages()
     {
-        return $this->globalErrorMessage ? [$this->globalErrorMessage] : $this->validationErrors;
+        return $this->globalErrorMessage && $this->hasError() ? [$this->globalErrorMessage] : $this->validationErrors;
     }
-
-    /**
-     * @return array
-     */
-    abstract protected function getDefaultCatalogMessages();
 }

@@ -2,13 +2,12 @@
 
 namespace Elixir\Filter;
 
-use Elixir\STDLib\Facade\I18N;
-use Elixir\Validator\ValidatorInterface;
+use Elixir\STDLib\MessagesCatalog;
 
 /**
  * @author Cédric Tanghe <ced.tanghe@gmail.com>
  */
-class CallbackValidator implements ValidatorInterface
+class CallbackValidator extends ValidatorAbstract
 {
     /**
      * @var callable
@@ -16,28 +15,13 @@ class CallbackValidator implements ValidatorInterface
     protected $callback;
 
     /**
-     * @var string
-     */
-    protected $defaultErrorMessage;
-
-    /**
-     * @var bool
-     */
-    protected $valid = false;
-
-    /**
-     * @var array
-     */
-    protected $validationErrors = [];
-
-    /**
      * @param callable $callback
-     * @param string   $defaultErrorMessage
+     * @param array    $options
      */
-    public function __construct(callable $callback, $defaultErrorMessage = null)
+    public function __construct(callable $callback, array $options = [])
     {
         $this->callback = $callback;
-        $this->defaultErrorMessage = $defaultErrorMessage ?: I18N::__('Validation failed.', ['context' => 'elixir']);
+        $this->setDefaultOptions($options);
     }
 
     /**
@@ -45,30 +29,23 @@ class CallbackValidator implements ValidatorInterface
      */
     public function validate($value, array $options = [])
     {
+        $options = $this->mergeOptions($options);
+        $this->validationErrors = [];
+
+        if (!$this->messagesCatalog) {
+            $this->setMessagesCatalog(MessagesCatalog::instance());
+        }
+
         $result = call_user_func_array($this->callback, [$value, $options]);
 
         if (is_array($result)) {
-            $this->valid = $result['valid'];
-            $this->validationErrors = isset($result['error']) ? (array) $result['error'] : [];
+            $valid = $result['valid'];
+            $this->validationErrors = isset($result['error']) ? (array) $result['error'] : ($valid ? [] : [$this->messagesCatalog->get(self::ERROR)]);
         } else {
-            $this->valid = (bool) $result;
-            $this->validationErrors = [];
+            $valid = (bool) $result;
+            $this->validationErrors = $valid ? [] : [$this->messagesCatalog->get(self::ERROR)];
         }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function hasError()
-    {
-        return $this->valid;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getErrors()
-    {
-        return count($this->validationErrors) > 0 ? $this->validationErrors : [$this->defaultErrorMessage];
+        return $valid;
     }
 }
