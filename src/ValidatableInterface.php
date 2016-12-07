@@ -32,6 +32,11 @@ interface ValidatableInterface
      * @param array              $options
      */
     public function addValidator(ValidatorInterface $validator, array $options = []);
+    
+    /**
+     * @param array $validators
+     */
+    public function setValidators(array $validators);
 
     /**
      * @return array

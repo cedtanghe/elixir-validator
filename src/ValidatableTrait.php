@@ -66,6 +66,22 @@ trait ValidatableTrait
     {
         $this->validators[] = ['validator' => $validator, 'options' => $options];
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setValidators(array $validators)
+    {
+        $this->validators = [];
+        
+        foreach ($validators as $config) {
+            
+            $validator = isset($config['validator']) ? $config['validator'] : $config;
+            $options = isset($config['options']) ? $config['options'] : [];
+            
+            $this->addValidator($validator, $options);
+        }
+    }
 
     /**
      * {@inheritdoc}
